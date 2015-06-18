@@ -1,0 +1,59 @@
+module ThreadRingCOG;
+
+// same as threadringcog, but each actor in a separate COG
+
+interface IActor {
+    Unit start(Int round);
+    Unit pass_token(Int round);
+    Unit done();
+}
+
+class Actor(Int id, IActor first) implements IActor {
+    Bool isDone = False;
+    IActor next;
+    {
+        if (this.first == null) {
+            next = new Actor(this.id-1,this);
+        }
+        else {
+            if (this.id != 0) {
+                next = new Actor(this.id-1,first);
+             }
+        }
+    }
+
+    Unit start(Int round) {
+       next ! pass_token(round);
+       await this.isDone;
+    }
+    Unit pass_token(Int round) {
+        if (round == 0) {
+            if (this.id == 0) {
+                first ! done();     
+             }
+            else {
+                next ! pass_token(round);
+            }
+        }
+        else {
+            if (this.id == 0) {
+                first ! pass_token(round-1); // next round
+            }
+            else {
+                next ! pass_token(round);
+            }
+        }
+    }
+    Unit done() {
+        this.isDone = True;
+    }
+}
+
+
+{
+ Int n = 500; // how many actors
+ Int rounds = 1000; // how many rounds of the ring
+ IActor a = new Actor(n,null);
+ Fut<Unit> f = a ! start(rounds);
+ await f?;
+}

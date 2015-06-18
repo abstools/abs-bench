@@ -1,0 +1,22 @@
+module SumList;
+
+// This bench creates a [1,2,..n] list and sums it up 
+
+// tail-recursive summing up
+def Int sum(List<Int> x) = sum_(x,0);
+def Int sum_(List<Int> x, Int acc) = case x {
+    Nil => acc;
+    Cons(y,ys) => sum_(ys, acc+y);
+};
+
+{
+ Int n = 100000;                // the size of the list
+ List<Int> x = Nil;             // initial list
+ Int i = 1;
+ while (i <= n) {               //  fill up the list
+   x = Cons(i, x);
+   i = i+1;
+ }
+ Int y = sum(x);                // sum it
+ println(toString(y == 5000050000));
+}
