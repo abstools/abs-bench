@@ -1,4 +1,5 @@
 // Adapted from bencherl/bang.erl
+// A one to many message passing
 
 module Bang;
 
