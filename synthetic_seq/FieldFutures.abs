@@ -29,7 +29,7 @@ class C implements I {
 
 
 {
- I o = new C();  
+ I o = new local C();  
  Fut<Unit> f = o ! start();
  await f?;
 }

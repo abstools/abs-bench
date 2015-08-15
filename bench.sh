@@ -23,14 +23,7 @@ for dir in $DIRS; do
     echo 'Benchmarking' ${file%.*} 'for erlang'; 
     /usr/bin/time -o $twd/results_erlang.csv -a -f "${file%.*},%x,%e,%U,%S,%P,%M,%c,%w,%F" -- ./run > ${base}.stdout 2> ${base}.stderr;
     cd $twd/gen/$dir/$base/haskell/
-    if [[ $dir =~ _par$ ]]; then
-        # run haskell with smp support and guessed cores of the system 
-        echo 'Benchmarking' ${file%.*} 'for haskell with SMP'; 
-    	/usr/bin/time -o $twd/results_haskell.csv -a -f "${file%.*},%x,%e,%U,%S,%P,%M,%c,%w,%F" -- ./run +RTS -N > ${base}.stdout 2> ${base}.stderr;
-    else
-        # run without smp
-        echo 'Benchmarking' ${file%.*} 'for haskell without SMP'; 
-        /usr/bin/time -o $twd/results_haskell.csv -a -f "${file%.*},%x,%e,%U,%S,%P,%M,%c,%w,%F" -- ./run > ${base}.stdout 2> ${base}.stderr;
-    fi;
+    echo 'Benchmarking' ${file%.*} 'for haskell'; 
+    /usr/bin/time -o $twd/results_haskell.csv -a -f "${file%.*},%x,%e,%U,%S,%P,%M,%c,%w,%F" -- ./run -t > ${base}.stdout 2> ${base}.stderr;
    done
 done

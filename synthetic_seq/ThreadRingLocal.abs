@@ -51,7 +51,7 @@ class Actor(Int id, IActor first) implements IActor {
 {
  Int n = 500; // how many actors
  Int rounds = 1000; // how many rounds of the ring
- IActor a = new Actor(n,null);
+ IActor a = new local Actor(n,null);
  Fut<Unit> f = a ! start(rounds);
  await f?;
 }

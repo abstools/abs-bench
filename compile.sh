@@ -16,13 +16,8 @@ for dir in $DIRS; do
    absc -erlang $file ; 
    rm -rf gen/${file%.*}/erl; 
    mv gen/erl gen/${file%.*}; 
-   if [[ $dir =~ _par$ ]]; then
-       echo 'Compiling' ${file%.*} 'to haskell (SMP)'; 
-       absc -haskell --smp -d gen/${file%.*}/haskell ${file} ; # enable smp for haskell
-   else
-       echo 'Compiling' ${file%.*} 'to haskell'; 
-       absc -haskell -d gen/${file%.*}/haskell ${file} ; 
-   fi;
+   echo 'Compiling' ${file%.*} 'to haskell'; 
+   absc -haskell -d gen/${file%.*}/haskell ${file} ; 
    cd gen/${file%.*}/haskell/ ; ./compile_main_module > /dev/null ; 
   done
 done
