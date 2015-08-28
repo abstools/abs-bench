@@ -25,7 +25,8 @@ class StresserImpl implements Stresser {
         Stresser prev = new StresserImpl();
         while (j > 0) {
             Stresser current = new StresserImpl();
-            prev!setStresser(current);
+            Stresser tmp = prev;
+            tmp!setStresser(current);
             pp = prev;
             prev = current;
             j = j - 1;

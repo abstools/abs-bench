@@ -70,9 +70,9 @@ class Cubes implements Sequence {
 
     while (sequences != Nil) {
         Int i = 0;
-        s = head(sequences);
+        Sequence tmp = head(sequences);
         while (i < 10000) {
-            s ! next();
+            tmp ! next();
             i = i + 1;
         }
 

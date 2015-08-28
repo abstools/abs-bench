@@ -13,7 +13,7 @@ def Int fib(Int n) = case n {
 
 interface I {
     Int fib_(Int n);
-    Unit wait();
+    Unit wait_();
 }
 
 class C implements I {
@@ -23,7 +23,7 @@ class C implements I {
       this.isDone = True;
       return res;
   }
-  Unit wait() {
+  Unit wait_() {
       await this.isDone;
   }
 }    
@@ -33,7 +33,7 @@ class C implements I {
  Fut<Int> f = o ! fib_(30);
  Int i = 0;
  while (i < 1000) {
-     o ! wait();
+     o ! wait_();
      i=i+1;
  }
  Int res = f.get;

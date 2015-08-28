@@ -1,31 +1,5 @@
 module BenchLists;
 
-// Maps
-data Map_<A, B> = EmptyMap_ | InsertAssoc_(Pair<A, B>, Map_<A, B>);
- // map constructor helper (does not preserve injectivity)
-
-def Map_<A, B> put_<A, B>(Map_<A, B> ms, A k, B v) =
-  case ms {
-    EmptyMap_ => InsertAssoc_(Pair(k, v),EmptyMap_);
-    InsertAssoc_(Pair(k_, v_), ts) => if (k == k_)
-    	then
-        InsertAssoc_(Pair(k_, v), ts)     
-        else 
-            InsertAssoc_(Pair(k_, v_), put_(ts, k, v))
-        ;
-  };
-
-def B lookupUnsafe_<A, B>(Map_<A, B> ms, A k) = // retrieve from the map
-  fromJust(lookup_(ms,k));
-  
-def Maybe<B> lookup_<A, B>(Map_<A, B> ms, A k) = // retrieve from the map
-  case ms {
-     InsertAssoc_(Pair(k_, y), tm) => if (k == k_)
-     								  then Just(y)
-     								  else lookup_(tm, k);
-     EmptyMap_ => Nothing;
-  };
-
 interface IArray{
 	Int sum();
 }
@@ -34,12 +8,12 @@ class CArray (Int n)implements IArray{
 	Int i=0;
 	Int s=0;
 		
-	Map_<Int,Int> m = EmptyMap_;
+	Map<Int,Int> m = EmptyMap;
 	
 	{
 	while (this.i<=this.n){
 		Int a = this.i*this.n;
-		this.m = put_(this.m,this.i, a);
+		this.m = put(this.m,this.i, a);
 		this.i=this.i+1;
 	}
 	}
@@ -47,7 +21,7 @@ class CArray (Int n)implements IArray{
 	Int sum(){
 		this.i=0;
 		while (this.i<=this.n){
-			this.s=this.s+ lookupUnsafe_(this.m,this.i);	
+			this.s=this.s+ lookupUnsafe(this.m,this.i);	
 			this.i=this.i+1;
 		}	
 		return this.s;
@@ -72,9 +46,11 @@ class CArray (Int n)implements IArray{
     Int res3 = f3.get;
     Int res4 = f4.get;
 
-    println(toString(res1 == 500050000000));
-    println(toString(res2 == 500050000000));
-    println(toString(res3 == 500050000000));
-    println(toString(res4 == 500050000000));
+    Int s = 500050000000;
+
+    println(toString(res1 == s));
+    println(toString(res2 == s));
+    println(toString(res3 == s));
+    println(toString(res4 == s));
 
 }

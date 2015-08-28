@@ -55,15 +55,16 @@ class Actor() implements A {
  Fut<Unit> f;
  // start the actors, by giving them the ids of their neighbouring actors (including themselves)
  while (as_ != Nil) {
-     a = head(as_);
-     f = a ! start(as);
+     A head = head(as_);
+     List<A> list = as;
+     f = head ! start(list);
      fs = Cons(f,fs);
      as_ = tail(as_);
  }
  // wait for the actors to finish
  while (fs != Nil) {
-    f = head(fs);
-    await f?;
+    Fut<Unit> ff = head(fs);
+    await ff?;
     fs = tail(fs);
  }
 }

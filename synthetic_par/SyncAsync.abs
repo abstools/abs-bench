@@ -24,18 +24,16 @@ class Actor(Int depth) implements A {
 Int actors = 100;
 Int depth = 500;
 Int i = actors;
-A a;
 List<Fut<Unit>> fs = Nil;
-Fut<Unit> f;
 while (i > 0) {
-    a = new Actor(depth);
-    f = a ! async();
+    A a = new Actor(depth);
+    Fut<Unit> f = a ! async();
     fs = Cons(f,fs);
     i = i-1;
 }
 
 while (fs != Nil) {
-    f = head(fs);
+    Fut<Unit> f = head(fs);
     await f?;
     fs = tail(fs);
 }
