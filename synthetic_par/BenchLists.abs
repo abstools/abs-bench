@@ -1,32 +1,34 @@
 module BenchLists;
 
+import * from Functions2;
+
 interface IArray{
-	Int sum();
+   Int sum();
 }
 
 class CArray (Int n)implements IArray{
-	Int i=0;
-	Int s=0;
-		
-	Map<Int,Int> m = EmptyMap;
-	
-	{
-	while (this.i<=this.n){
-		Int a = this.i*this.n;
-		this.m = put(this.m,this.i, a);
-		this.i=this.i+1;
-	}
-	}
-	
-	Int sum(){
-		this.i=0;
-		while (this.i<=this.n){
-			this.s=this.s+ lookupUnsafe(this.m,this.i);	
-			this.i=this.i+1;
-		}	
-		return this.s;
-	}
-			 
+   Int i=0;
+   Int s=0;
+      
+   Map_<Int,Int> m = EmptyMap_;
+   
+   {
+   while (this.i<=this.n){
+      Int a = this.i*this.n;
+      this.m = put_(this.m,this.i, a);
+      this.i=this.i+1;
+   }
+   }
+   
+   Int sum(){
+      this.i=0;
+      while (this.i<=this.n){
+         this.s=this.s+ lookupUnsafe_(this.m,this.i); 
+         this.i=this.i+1;
+      }  
+      return this.s;
+   }
+          
 }
 
 
@@ -46,11 +48,9 @@ class CArray (Int n)implements IArray{
     Int res3 = f3.get;
     Int res4 = f4.get;
 
-    Int s = 500050000000;
-
-    println(toString(res1 == s));
-    println(toString(res2 == s));
-    println(toString(res3 == s));
-    println(toString(res4 == s));
+    println(toString(res1 == 500050000000));
+    println(toString(res2 == 500050000000));
+    println(toString(res3 == 500050000000));
+    println(toString(res4 == 500050000000));
 
 }
