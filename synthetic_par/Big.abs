@@ -43,20 +43,20 @@ class Actor() implements A {
  Int actors = 100;
  Int i = actors;
  A a;
- List<A> as = Nil;
+ List<A> asl = Nil;
  // spawn the actors
  while (i > 0) {
      a = new Actor();
-     as = Cons(a,as);
+     asl = Cons(a,asl);
      i = i-1;
  }
- List<A> as_ = as;
+ List<A> as_ = asl;
  List<Fut<Unit>> fs = Nil;
  Fut<Unit> f;
  // start the actors, by giving them the ids of their neighbouring actors (including themselves)
  while (as_ != Nil) {
      a = head(as_);
-     f = a ! start(as);
+     f = a ! start(asl);
      fs = Cons(f,fs);
      as_ = tail(as_);
  }
